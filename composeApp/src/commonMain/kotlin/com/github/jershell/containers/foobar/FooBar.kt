@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 
 @Composable
@@ -26,7 +27,7 @@ fun FooBar() {
     val vm = viewModel(
         key = "FooBar",
         modelClass = FooBarViewModel::class,
-        factory = viewModelFactory { FooBarViewModel() }
+        factory = viewModelFactory { initializer { FooBarViewModel()} }
     )
 
     val dt by vm.mutableValue.collectAsState()
@@ -39,6 +40,6 @@ fun FooBar() {
             .clickable { vm.refreshDT() }
             .padding(16.dp)
     ) {
-        Text(text = dt, Modifier.align(Alignment.Center))
+        Text(text = dt, Modifier.align(Alignment.Center), color = Color.Black)
     }
 }
